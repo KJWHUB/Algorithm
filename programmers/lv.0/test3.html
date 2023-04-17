@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>아이스 아메리카노</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    머쓱이는 추운 날에도 아이스 아메리카노만 마십니다.
+    아이스 아메리카노는 한잔에 5,500원입니다.
+    머쓱이가 가지고 있는 돈 money가 매개변수로 주어질 때, 머쓱이가 최대로 마실 수 있는 아메리카노의 잔 수와 남는 돈을 순서대로 담은 배열을 return 하도록 solution 함수를 완성해보세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    0 < money ≤ 1,000,000
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    money	result
+    5,500	[1, 0]
+    15,000	[2, 4000]
+  </div>
+
+</body>
+</html>
+
+<script>
+
+  function solution(money) {
+    var result = 0;
+    const price = 5500
+    let cupLength = 0
+
+    for(let i = 1; money >= price*i; i++) {
+      cupLength++
+    }
+    result = [cupLength, money%price]
+    return result;
+  }
+  const money = 5500
+  console.log('ret', solution(money))
+</script>

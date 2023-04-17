@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>문자 반복 출력하기</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    문자열 my_string과 정수 n이 매개변수로 주어질 때, my_string에 들어있는 각 문자를 n만큼 반복한 문자열을 return 하도록 solution 함수를 완성해보세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    2 ≤ my_string 길이 ≤ 5
+    2 ≤ n ≤ 10
+    "my_string"은 영어 대소문자로 이루어져 있습니다.
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    my_string	n	result
+    "hello"	3	"hhheeellllllooo"
+  </div>
+
+</body>
+</html>
+
+<script>
+
+// 내가짠거
+function solution(my_string, n) {
+    var answer = '';
+    let arr = []
+    let copy = [...my_string]
+    
+    copy.forEach(element => {
+      for(let i = 0; n > i; i++) {
+        arr.push(element)
+      }
+    })
+    answer = arr.join('')
+    return answer;
+}
+
+// 리팩토링
+function solution1(my_string, n) {
+    var answer = '';
+    let arr = []
+    let copy = [...my_string]
+    arr = arr.concat(copy.flatMap(element => Array(n).fill(element)));
+    answer = arr.join('')
+    return answer;
+}
+
+
+const st = 'hello'
+const n = 3
+
+
+console.log(solution(st, n))
+
+</script>
