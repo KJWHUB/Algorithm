@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>개미 군단</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    개미 군단이 사냥을 나가려고 합니다.
+    개미군단은 사냥감의 체력에 딱 맞는 병력을 데리고 나가려고 합니다.
+    장군개미는 5의 공격력을, 병정개미는 3의 공격력을 일개미는 1의 공격력을 가지고 있습니다.
+    예를 들어 체력 23의 여치를 사냥하려고 할 때, 일개미 23마리를 데리고 가도 되지만, 장군개미 네 마리와 병정개미 한 마리를 데리고 간다면 더 적은 병력으로 사냥할 수 있습니다.
+    사냥감의 체력 hp가 매개변수로 주어질 때, 사냥감의 체력에 딱 맞게 최소한의 병력을 구성하려면 몇 마리의 개미가 필요한지를 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    hp는 자연수입니다.
+    0 ≤ hp ≤ 1000
+    
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    hp	result
+    23	5
+    24	6
+    999	201
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(hp) {
+  let result = 0
+  let antCnt = 0
+  const ant1 = 5
+  const ant2 = 3
+  const ant3 = 1
+
+  for(let i = 1; i*ant1 <= hp; i++) {
+    antCnt++
+    result += ant1
+  }
+  
+  for(let i = 1; i*ant2 <= hp - result; i++) {
+    antCnt++
+    result += ant2
+  }
+
+  while (hp !== result) {
+    antCnt++
+    result += ant3
+  }
+  
+  return antCnt
+}
+const n = 999
+console.log(solution(n))
+
+// 리팩토링
+function solution1(hp) {
+  const 장군개미 = Math.floor(hp / 5);
+  const 병정개미 = Math.floor((hp - (장군개미 * 5)) / 3);
+  const 일개미 = hp - ((장군개미 * 5) + (병정개미 * 3));
+  return 장군개미+병정개미+일개미;
+}
+
+</script>

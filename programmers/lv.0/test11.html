@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>숨어있는 숫자의 덧셈 (1)</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    문자열 my_string이 매개변수로 주어집니다.
+    my_string안의 모든 자연수들의 합을 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    1 ≤ my_string의 길이 ≤ 1,000
+    my_string은 소문자, 대문자 그리고 한자리 자연수로만 구성되어있습니다.
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    my_string	result
+    "aAb1B2cC34oOp"	10
+    "1a2b3c4d123"	16
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(my_string) {
+  let cnt = 0;
+  const arr = [...my_string]
+  arr.forEach((el) => {
+    if(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(el)) {
+      cnt += Number(el)
+    }
+  })
+  return cnt
+}
+const str = '1a2b3c4d123'
+console.log(solution(str))
+
+// 리팩토링
+const cnt = str.split('').reduce((acc, el) => acc + (/\d/.test(el) ? Number(el) : 0), 0);
+
+/*
+  위의 코드에서는 split() 메서드를 사용하여 문자열을 배열로 변환하고, reduce() 메서드를 사용하여 각 문자열 요소를 순회하며 숫자인지 검사합니다.
+  정규표현식 /\d/을 사용하여 숫자인지 판별하고, 숫자인 경우에만 Number() 함수를 사용하여 누적값 acc에 더해주고, 숫자가 아닌 경우에는 누적값에 추가하지 않습니다.
+*/
+
+
+</script>
