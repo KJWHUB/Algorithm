@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>최댓값 만들기 (2)</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    정수 배열 numbers가 매개변수로 주어집니다.
+    numbers의 원소 중 두 개를 곱해 만들 수 있는 최댓값을 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    -10,000 ≤ numbers의 원소 ≤ 10,000
+    2 ≤ numbers 의 길이 ≤ 100
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    numbers	result
+    [1, 2, -3, 4, -5]	15
+    [0, -31, 24, 10, 1, 9]	240
+    [10, 20, 30, 5, 5, 20, 5]	600
+  </div>
+
+</body>
+</html>
+
+<script>
+
+/*
+  유의 사항
+  -원소는 중복이 가능하다
+  -원소는 0 이 가능하다
+  -길이는 최소 2 이다
+*/
+
+
+// 내가 짠 코드
+function solution(numbers) {
+
+  if (numbers.length === 2) {
+    return numbers[0] * numbers[1]
+  }
+
+  const max1 = Math.max(...numbers)
+  numbers.splice(numbers.findIndex((el) => el === max1), 1)
+  const max2 = Math.max(...numbers)
+  const min1 = Math.min(...numbers)
+  numbers.splice(numbers.findIndex((el) => el === min1), 1)
+  const min2 = Math.min(...numbers)
+
+  const arr = [max1*max2, max1*min1, max1*min2, max2*min1, max2*min2, min1*min2]
+  console.log(max1, max2, min1, min2)
+  console.log(arr)
+  return Math.max(...arr)
+}
+
+
+// 리팩토링
+function solution1(numbers) {
+    numbers.sort((a, b) => a - b);
+    return Math.max(numbers[0]*numbers[1], numbers[numbers.length-1]*numbers[numbers.length-2]);
+}
+
+// const numbers = [0, 2, -1]
+// const numbers = [0, 0, 0, -1]
+// const numbers = [0, 0, 0, -1, 1]
+// const numbers = [0, 0, 3]
+// const numbers = [0, 2]
+const numbers = [ 2, -1]
+// const numbers = [0, 2, -1]
+// const numbers = [0, 2, -1]
+
+console.log(solution(numbers))
+
+</script>
