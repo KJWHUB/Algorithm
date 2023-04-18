@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>세균 증식</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    어떤 세균은 1시간에 두배만큼 증식한다고 합니다.
+    처음 세균의 마리수 n과 경과한 시간 t가 매개변수로 주어질 때 t시간 후 세균의 수를 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    1 ≤ n ≤ 10
+    1 ≤ t ≤ 15
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    n	t	result
+    2	10	2048
+    7	15	229,376
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(n, t) {
+  let cnt = n
+  for(let i = 1; t >= i; i++) {
+    cnt = cnt * 2
+  }
+  return cnt
+}
+
+// 리팩토링
+function solution1(n, t) {
+  return n << t;
+}
+
+const n = 7
+const t = 15
+console.log(solution(n, t))
+
+</script>

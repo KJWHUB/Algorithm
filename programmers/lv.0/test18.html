@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>문자열 정렬하기 (1)</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    문자열 my_string이 매개변수로 주어질 때, my_string 안에 있는 숫자만 골라 오름차순 정렬한 리스트를 return 하도록 solution 함수를 작성해보세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    1 ≤ my_string의 길이 ≤ 100
+    my_string에는 숫자가 한 개 이상 포함되어 있습니다.
+    my_string은 영어 소문자 또는 0부터 9까지의 숫자로 이루어져 있습니다. - - -
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    my_string	result
+    "hi12392"	[1, 2, 2, 3, 9]
+    "p2o4i8gj2"	[2, 2, 4, 8]
+    "abcde0"	[0]
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(my_string) {
+  const arr = [...my_string]
+  const filter = arr.filter((el) => Number(el) || Number(el) === 0)
+  const map = filter.map((el) => Number(el))
+  const sort = map.sort((a, b) => a - b)
+  return sort
+}
+
+// 리팩토링
+function solution1(my_string) {
+  const arr = [...my_string]
+  // return arr
+  //   .filter((el) => Number(el) || Number(el) === 0)
+  //   .map((el) => Number(el))
+  //   .sort((a, b) => a - b);
+
+  return arr.filter((el) => Number(el) || Number(el) === 0).map((el) => Number(el)).sort((a, b) => a - b);
+}
+
+const my_string = 'abcde0'
+console.log(solution(my_string))
+console.log(solution1(my_string))
+
+</script>
