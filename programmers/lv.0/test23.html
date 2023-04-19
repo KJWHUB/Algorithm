@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>외계행성의 나이</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    우주여행을 하던 머쓱이는 엔진 고장으로 PROGRAMMERS-962 행성에 불시착하게 됐습니다.
+    입국심사에서 나이를 말해야 하는데, PROGRAMMERS-962 행성에서는 나이를 알파벳으로 말하고 있습니다.
+    a는 0, b는 1, c는 2, ..., j는 9입니다.
+    예를 들어 23살은 cd, 51살은 fb로 표현합니다.
+    나이 age가 매개변수로 주어질 때 PROGRAMMER-962식 나이를 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    age는 자연수입니다.
+    age ≤ 1,000
+    PROGRAMMERS-962 행성은 알파벳 소문자만 사용합니다.
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    age	result
+    23	"cd"
+    51	"fb"
+    100	"baa"
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(age) {
+  const fromCharCodeArr = []
+  for (let i = 97; i <= 122; i++) {
+    fromCharCodeArr.push(String.fromCharCode(i))
+  }
+  const arr = [...String(age)].map((el) => Number(el))
+  return arr.map((el) => fromCharCodeArr[el]).join('');
+}
+
+
+console.log(new Array(26).fill().map((_, i) => String.fromCharCode(i + 97)))
+
+const age = 51
+
+console.log(solution(age))
+
+</script>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>구슬을 나누는 경우의 수</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    머쓱이는 구슬을 친구들에게 나누어주려고 합니다.
+    구슬은 모두 다르게 생겼습니다.
+    머쓱이가 갖고 있는 구슬의 개수 balls와 친구들에게 나누어 줄 구슬 개수 share이 매개변수로 주어질 때, balls개의 구슬 중 share개의 구슬을 고르는 가능한 모든 경우의 수를 return 하는 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    1 ≤ balls ≤ 30
+    1 ≤ share ≤ 30
+    구슬을 고르는 순서는 고려하지 않습니다.
+    share ≤ balls
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    balls	share	result
+    3	2	3
+    5	3	10
+  </div>
+
+</body>
+</html>
+
+<script>
+
+// 
+// const factorial = (n) => {
+//     let arr = []
+//     for(let i = 1; n >= i; i++) {
+//       arr.push(i)
+//     }
+
+//     return arr.reduce((acc, curr) => acc * curr, 1);
+//   }
+
+// function solution(n, m) {
+//   // 팩토리얼 값 반환 함수
+//   const factorial = (num) => {
+//     let res = 1
+//     for(let i = 1; num >= i; i++) {
+//       res *= i
+//     }
+//     return res;
+//   }
+
+//   if (n === m) {
+//     return 1
+//   }
+
+
+//   const u = factorial(n)
+//   const d = factorial(n - m) * factorial(m)
+
+//   console.log(u)
+//   console.log(d)
+
+//   return u / d;
+// }
+
+// 내가 짠 코드
+// function solution(n, m) {
+
+//   let upArr = []
+//   for (let i = n; i >= m; i--) {
+//     upArr.push(i)
+//   }
+//   let downArr = []
+//   for(let i = 1; i <= m; i++) {
+//     downArr.push(i)
+//   }
+
+//   if (n === m) {
+//     return 1
+//   }
+
+//   const u = BigInt(upArr.reduce((acc, curr) => acc * curr, 1))
+//   const d = BigInt(downArr.reduce((acc, curr) => acc * curr, 1))
+
+//   console.log(u, d)
+
+//   return u / d;
+// }
+
+function solution(n, m) {
+  // 팩토리얼 값 반환 함수
+  const factorial = (num) => {
+    let res = 1
+    for(let i = 1; num >= i; i++) {
+      res *= i
+    }
+    return res;
+  }
+
+  if (n === m) {
+    return 1
+  }
+
+
+  const u = factorial(n)
+  const d = factorial(n - m) * factorial(m)
+
+  console.log(u)
+  console.log(d)
+
+  return Math.round(u / d);
+}
+
+// 리팩토링
+const 팩토리얼 = (num) => num === 0 ? 1 : num * 팩토리얼(num - 1)
+
+function solution1(balls, share) {
+  return Math.round(팩토리얼(balls) / 팩토리얼(balls - share) / 팩토리얼(share))
+}
+
+const n = 5
+const m = 3
+
+console.log('solution', solution(n, m))
+
+</script>
