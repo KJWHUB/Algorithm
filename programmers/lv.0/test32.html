@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>문자열 정렬하기 (2)</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    영어 대소문자로 이루어진 문자열 my_string이 매개변수로 주어질 때, my_string을 모두 소문자로 바꾸고 알파벳 순서대로 정렬한 문자열을 return 하도록 solution 함수를 완성해보세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    0 < my_string 길이 < 100
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    my_string	result
+    "Bcad"	"abcd"
+    "heLLo"	"ehllo"
+    "Python"	"hnopty"
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(my_string) {
+  const arr = [...my_string.toLowerCase()]
+  const fromCharCodeArr = []
+  for (let i = 97; i <= 122; i++) {
+    fromCharCodeArr.push(String.fromCharCode(i))
+  }
+  const sort = arr.sort((a, b) => fromCharCodeArr.findIndex((el) => el === a) - fromCharCodeArr.findIndex((el) => el === b))
+  return sort.join('');
+}
+
+const my_string = 'heLLo'
+console.log('solution', solution(my_string))
+
+</script>
