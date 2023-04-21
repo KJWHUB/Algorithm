@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>소인수분해</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    소인수분해란 어떤 수를 소수들의 곱으로 표현하는 것입니다.
+    예를 들어 12를 소인수 분해하면 2 * 2 * 3 으로 나타낼 수 있습니다. 
+    따라서 12의 소인수는 2와 3입니다.
+    자연수 n이 매개변수로 주어질 때 n의 소인수를 오름차순으로 담은 배열을 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    2 ≤ n ≤ 10,000
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    n	result
+    12	[2, 3]
+    17	[17]
+    420	[2, 3, 5, 7]
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+
+// 뇌 빼고 코딩함
+// function solution(n) {
+
+//   const list = [2, 3, 5, 7]
+//   const arr = []
+
+//   const zgfn = (el, n) => {
+//     let arr1 = []
+//     if (Number.isInteger(n/el)) {
+//       zgfn(el, n/el)
+//       arr1.push(el)
+//     } else {
+//       return n
+//     }
+//     return arr1
+//   }
+
+//   list.forEach(el => {
+//     arr.push(zgfn(el, n))
+//   })
+
+//   if (!arr.some((el) => Array.isArray(el))) {
+//     return [n]
+//   }
+  
+//   const flat = arr.flat()
+
+//   const filter = flat.filter((el) => list.includes(el))
+
+//   const sort = filter.sort((a, b) => a - b)
+
+//   return sort;
+// }
+
+// 제대로함
+// function solution(n) {
+
+//   const list = [2, 3, 5, 7]
+//   const arr = []
+
+//   const zgfn = (n) => {
+//     console.log(n)
+//     let temp = []
+//     if (list.includes(n)) {
+//       temp.push(n)
+//       return temp
+//     } else {
+//       let x
+//       const filter = list.filter((el) => Number.isInteger(n/el))
+//       if (filter.length === 0) {
+//         arr.push(x)
+//         return [n]
+//       } else {
+//         x = filter[0]
+//       }
+//       arr.push(x)
+//       return zgfn(n/x)
+//     }
+//   }
+
+//   const concat = arr.concat(zgfn(n))
+//   const sort = concat.sort((a, b) => a - b)
+//   const last = [...new Set(sort)]
+
+//   return last;
+// }
+
+function solution(n) {
+  const arr = []
+
+  // 소수 판별
+  const isPrime = (num) => {
+    if (num < 2) {
+      return false;
+    }
+    for (let i = 2; i < num; i++) {
+      if (num % i === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  const zgfn = (n) => {
+    if (isPrime(n)) {
+      arr.push(n)
+      return
+    } else {
+      const list = []
+      for (let i = 2; i < n; i++) {
+        if (Number.isInteger(n/i)) {
+          list.push(i)
+        }
+      }
+      const x = list[0]
+      arr.push(x)
+      return zgfn(n/x)
+    }
+  }
+
+  zgfn(n)
+  
+  return [...new Set(arr)];
+}
+
+const n = 34
+
+console.log(solution(n))
+
+
+//
+
+// function sum(n) {
+//   if (n === 1) {
+//     return 1;
+//     console.log('a',n)
+//   } else {
+//     console.log('a',n)
+//     return n + sum(n - 1);
+//   }
+// }
+
+// console.log(sum(5)); // 15
+
+
+
+</script>

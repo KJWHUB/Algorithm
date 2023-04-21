@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>한 번만 등장한 문자</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    문자열 s가 매개변수로 주어집니다.
+    s에서 한 번만 등장하는 문자를 사전 순으로 정렬한 문자열을 return 하도록 solution 함수를 완성해보세요.
+    한 번만 등장하는 문자가 없을 경우 빈 문자열을 return 합니다.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    0 < s의 길이 < 1,000
+    s는 소문자로만 이루어져 있습니다.
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    s	result
+    "abcabcadc"	"d"
+    "abdc"	"abcd"
+    "hello"	"eho"
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(s) {
+  const arr = [...s]
+  const temp = {}
+
+  arr.forEach(el => {
+    if (temp[el] !== undefined) {
+      temp[el]++
+    } else {
+      temp[el] = 1
+    }
+  })
+
+  if (Object.values(temp).includes(1)) {
+    let arr1 = []
+    for (const key in temp) {
+      if (temp[key] === 1) {
+        arr1.push(key)
+      }
+    }
+    return arr1.sort().join('');
+  } else {
+    return '';
+  }
+}
+
+
+const s = "hello"
+
+console.log(solution(s))
+
+
+</script>

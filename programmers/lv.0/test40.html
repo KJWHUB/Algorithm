@@ -37,15 +37,47 @@
 
 <script>
 // 내가 짠 코드
+// function solution(my_string) {
+
+//   const arr = [...my_string]
+
+//   const numCheck = (index) => {
+//     let temp = arr[index]
+//     if (Number(arr[index])) {
+//       temp = arr[index] + numCheck(index + 1)
+//     } else {
+//       return ''
+//     }
+//     return temp
+//   }
+
+//   const map = arr.map((el, index) => numCheck(index))
+//   const filter = map.filter((el) => (el)).map((el) => Number(el));
+
+//   console.log(map)
+
+//   // const plus = map.reduce((acc, curr) => acc + curr)
+
+//   return 1;
+// }
+
 function solution(my_string) {
 
+  const rgx = /^[0-9]/
+  if ([...my_string].filter((el) => rgx.test(el)).length === 0) {
+    return 0
+  }
   const arr = [...my_string]
-  const arr1 = []
+  const change = arr.map((el) => rgx.test(el) ? el : 'none')
+  .reduce((acc, curr) => acc + curr)
+  .split('none')
+  .filter((el) => el)
+  const change1 = change.map((el) => Number(el)).reduce((acc, curr) => acc + curr);
   
-  return 1;
+  return change1;
 }
 
-const array = 'aAb1B2cC34oOp'
+const my_string = '1a2b3c4d123Z'
 
 console.log(solution(my_string))
 
