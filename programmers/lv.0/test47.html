@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>
+    잘라서 배열로 저장하기
+  </h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    문자열 my_str과 n이 매개변수로 주어질 때, my_str을 길이 n씩 잘라서 저장한 배열을 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    1 ≤ my_str의 길이 ≤ 100
+    1 ≤ n ≤ my_str의 길이
+    my_str은 알파벳 소문자, 대문자, 숫자로 이루어져 있습니다.    
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    my_str	n	result
+    "abc1Addfggg4556b"	6	["abc1Ad", "dfggg4", "556b"]
+    "abcdef123"	3	["abc", "def", "123"]
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+// function solution(my_str, n) {
+
+//   if (my_str.length === 1) {
+//     return [my_str]
+//   }
+
+//   let arr = [...my_str]
+//   const cnt = Math.round(arr.length/n)
+//   const arr1 = []
+
+//   for (let i = 1; i <= cnt; i++) {
+//     arr1.push(arr.slice(0, n))
+//     for (let index = 0; index < n; index++) {
+//       arr.shift()
+//     }
+//   }
+
+//   const map = arr1.map(element => element.join(''));
+
+//   return map;
+// }
+
+function solution(my_str, n) {
+  let arr = [...my_str]
+  const res = []
+  const cnt = Math.floor(arr.length/n) + 1
+
+  if (n === 1) {
+    return arr
+  }
+  if (n === arr.length) {
+    return [my_str]
+  }
+  for (let i = 1; i <= cnt; i++) {
+    res.push(arr.slice(0, n))
+    arr.splice(0, n)
+  }
+
+  const map = res.map((el) => el.join(''))
+  const filter = map.filter((el) => el !== '')
+  return filter;
+}
+
+const my_str = "abcd5"
+const n = 4
+
+console.log(solution(my_str, n))
+
+</script>
