@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>등수 매기기</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    영어 점수와 수학 점수의 평균 점수를 기준으로 학생들의 등수를 매기려고 합니다. 
+    영어 점수와 수학 점수를 담은 2차원 정수 배열 score가 주어질 때, 영어 점수와 수학 점수의 평균을 기준으로 매긴 등수를 담은 배열을 return하도록 solution 함수를 완성해주세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    0 ≤ score[0], score[1] ≤ 100
+    1 ≤ score의 길이 ≤ 10
+    score의 원소 길이는 2입니다.
+    score는 중복된 원소를 갖지 않습니다.    
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    score	result
+    [[80, 70], [90, 50], [40, 70], [50, 80]]	[1, 2, 4, 3]
+    [[80, 70], [70, 80], [30, 50], [90, 100], [100, 90], [100, 100], [10, 30]]	[4, 4, 6, 2, 2, 1, 7]
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(score) {
+  const map = score.map((el) => el.reduce((acc, curr) => acc + curr)/el.length)
+  const list = [...map].sort((a, b) => b - a).map((el, i) => [el, i + 1]) 
+  const arr = map.map((el) => list.find((el1) => el === el1[0])[1])
+  return arr;
+}
+
+const score = [[80, 70], [90, 50], [40, 70], [50, 80]]
+
+console.log(solution(score))
+
+</script>

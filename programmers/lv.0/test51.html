@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>직사각형 넓이 구하기</h1>
+
+  <h3>문제 설명</h3>
+  <p>
+    2차원 좌표 평면에 변이 축과 평행한 직사각형이 있습니다.
+    직사각형 네 꼭짓점의 좌표 [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]가 담겨있는 배열 dots가 매개변수로 주어질 때, 직사각형의 넓이를 return 하도록 solution 함수를 완성해보세요.
+  </p>
+
+  <h3>제한사항</h3>
+  <p>
+    dots의 길이 = 4
+    dots의 원소의 길이 = 2
+    -256 < dots[i]의 원소 < 256
+    잘못된 입력은 주어지지 않습니다.      
+  </p>
+
+  <h3>입출력 예</h3>
+  <div>
+    dots	result
+    [[1, 1], [2, 1], [2, 2], [1, 2]]	1
+    [[-1, -1], [1, 1], [1, -1], [-1, 1]]	4
+  </div>
+
+</body>
+</html>
+
+<script>
+// 내가 짠 코드
+function solution(dots) {
+  const xList = dots.map((el) => el[0])
+  const yList = dots.map((el) => el[1])
+  const xObj = {
+    max: Math.max(...xList),
+    min: Math.min(...xList),
+  }
+  const yObj = {
+    max: Math.max(...yList),
+    min: Math.min(...yList),
+  }
+
+  const calculate = (obj) => {
+    let result
+    if (obj.min === 0) {
+      result = Math.abs(obj.max)
+    }
+    if (obj.max === 0) {
+      result = Math.abs(obj.min)
+    }
+    if (obj.max > 0 && obj.min > 0) {
+      result = obj.max - obj.min
+    }
+    if (obj.max > 0 && obj.min < 0) {
+      result = obj.max + Math.abs(obj.min)
+    }
+    if (obj.max < 0) {
+      result = Math.abs(obj.min) - Math.abs(obj.max)
+    }
+    return result
+  }
+
+  // 가로길이
+  let x = calculate(xObj)
+  // 세로길이
+  let y = calculate(yObj)
+
+  return x*y;
+}
+
+const dots = [[2, 4], [6, 4], [2, 2], [6, 2]]
+
+console.log(solution(dots))
+
+</script>
