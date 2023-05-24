@@ -37,7 +37,29 @@
 <script>
 // 내가 짠 코드
 function solution(A, B) {
-  return 1;
+  const arrA = [...A]
+  const arrB = [...B]
+
+  const temp = [...A].sort().toString() !== [...B].sort().toString()
+  if (temp) {
+    return -1
+  }
+  if (A === B) {
+    return 0
+  }
+
+  const change = (arr) => {
+    arr.unshift(arr.pop())
+    return arr
+  }
+
+  for (let i = 1; i <= arrA.length; i++) {
+    change(arrA)
+    if (arrA.toString() === arrB.toString()) {
+      return i
+    }
+  }
+  return -1
 }
 
 const A = "hello"
