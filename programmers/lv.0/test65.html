@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>다항식 더하기</h1>
+
+    <h3>문제 설명</h3>
+    <p>
+      다음 그림과 같이 지뢰가 있는 지역과 지뢰에 인접한 위, 아래, 좌, 우 대각선
+      칸을 모두 위험지역으로 분류합니다. image.png 지뢰는 2차원 배열 board에 1로
+      표시되어 있고 board에는 지뢰가 매설 된 지역 1과, 지뢰가 없는 지역 0만
+      존재합니다. 지뢰가 매설된 지역의 지도 board가 매개변수로 주어질 때, 안전한
+      지역의 칸 수를 return하도록 solution 함수를 완성해주세요.
+    </p>
+
+    <h3>제한사항</h3>
+    <p>
+      board는 n * n 배열입니다. 1 ≤ n ≤ 100 지뢰는 1로 표시되어 있습니다.
+      board에는 지뢰가 있는 지역 1과 지뢰가 없는 지역 0만 존재합니다.
+    </p>
+
+    <h3>입출력 예</h3>
+    <div>
+      board result [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 1,
+      0, 0], [0, 0, 0, 0, 0]] 16 [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0,
+      0], [0, 0, 1, 1, 0], [0, 0, 0, 0, 0]] 13 [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1,
+      1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1,
+      1, 1, 1, 1]] 0
+    </div>
+  </body>
+</html>
+
+<script>
+  /*
+    1이 없다면 return 25
+    모두 1 이라면 return 0
+  */
+
+  // 내가 짠 코드
+  function solution(board) {
+    const n = board.length;
+    const arrFn = (arr, lineNum) => {
+      arr.forEach((el, i) => {
+        // 지뢰 일때만 실행
+        if (el === 1) {
+          const left = i - 1;
+          const right = i + 1;
+          // 지뢰 기준 왼쪽 위험지역 할당
+          if (left >= 0 && arr[left] !== 1) {
+            arr[left] = 2;
+          }
+          // 지뢰 기준 오른쪽 위험지역 할당
+          if (right <= n - 1 && arr[right] !== 1) {
+            arr[right] = 2;
+          }
+
+          // 위쪽 위험지역 할당
+          if (lineNum !== 0) {
+            const upLineIndex = lineNum - 1;
+            // 지뢰 기준 위
+            if (board[upLineIndex][i] !== 1) {
+              board[upLineIndex][i] = 2;
+            }
+            // 왼 대각선
+            if (left >= 0 && board[upLineIndex][left] !== 1) {
+              board[upLineIndex][left] = 2;
+            }
+            // 오른 대각선
+            if (right <= n - 1 && board[upLineIndex][right] !== 1) {
+              board[upLineIndex][right] = 2;
+            }
+          }
+          // 아래쪽 위험지역 할당
+          if (lineNum !== n - 1) {
+            const downLineIndex = lineNum + 1;
+            // 지뢰 기준 아래
+            if (board[downLineIndex][i] !== 1) {
+              board[downLineIndex][i] = 2;
+            }
+            // 왼 대각선
+            if (left >= 0 && board[downLineIndex][left] !== 1) {
+              board[downLineIndex][left] = 2;
+            }
+            // 오른 대각선
+            if (right <= n - 1 && board[downLineIndex][right] !== 1) {
+              board[downLineIndex][right] = 2;
+            }
+          }
+        }
+      });
+    };
+
+    // 위험 지역 할당
+    board.forEach((el, i) => {
+      arrFn(el, i);
+    });
+
+    return board.flat().filter((el) => el === 0).length;
+  }
+
+  const board = [
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0],
+  ];
+
+  console.log(solution(board));
+</script>
