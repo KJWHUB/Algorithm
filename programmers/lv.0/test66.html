@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>겹치는 선분의 길이</h1>
+
+    <h3>문제 설명</h3>
+    <p>
+      선분 3개가 평행하게 놓여 있습니다. 세 선분의 시작과 끝 좌표가 [[start,
+      end], [start, end], [start, end]] 형태로 들어있는 2차원 배열 lines가
+      매개변수로 주어질 때, 두 개 이상의 선분이 겹치는 부분의 길이를 return
+      하도록 solution 함수를 완성해보세요. lines가 [[0, 2], [-3, -1], [-2, 1]]일
+      때 그림으로 나타내면 다음과 같습니다.
+    </p>
+
+    <h3>제한사항</h3>
+    <p>
+      lines의 길이 = 3 lines의 원소의 길이 = 2 모든 선분은 길이가 1 이상입니다.
+      lines의 원소는 [a, b] 형태이며, a, b는 각각 선분의 양 끝점 입니다. -100 ≤
+      a < b ≤ 100
+    </p>
+
+    <h3>입출력 예</h3>
+    <div>
+      lines result [[0, 1], [2, 5], [3, 9]] 2 [[-1, 1], [1, 3], [3, 9]] 0 [[0,
+      5], [3, 9], [1, 10]] 8
+    </div>
+  </body>
+</html>
+
+<script>
+  /*
+
+  */
+
+  // 길이만큼 리턴
+  const lengthArr = (a, b) => {
+    const arr = [];
+    for (let i = a; i <= b; i++) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
+  const compare = (arr1, arr2) => {
+    const [arr1Start, arr1End] = arr1;
+    const [arr2Start, arr2End] = arr2;
+    //
+    if (arr1Start < arr2Start && arr1End >= arr2End) {
+      return arr2;
+    }
+    if (arr2Start < arr1Start && arr2End >= arr1End) {
+      return arr1;
+    }
+
+    //
+    if (arr1Start <= arr2Start && arr1End > arr2Start && arr1End <= arr2End) {
+      return [arr2Start, arr1End];
+    }
+    if (arr2Start <= arr1Start && arr2End > arr1Start && arr2End <= arr1End) {
+      return [arr1Start, arr2End];
+    }
+
+    //  [0, 5], [5, 10] => []
+    if (arr1End <= arr2Start) {
+      return [];
+    }
+    if (arr2End <= arr1Start) {
+      return [];
+    }
+  };
+
+  function solution(lines) {
+    let answer = 0;
+
+    const x1 = compare(lines[0], lines[1]);
+    const x2 = compare(lines[0], lines[2]);
+    const x3 = compare(lines[1], lines[2]);
+    console.log(x1, x2, x3);
+
+    const totalArr = [x1, x2, x3];
+    if (totalArr.every((el) => el.length === 0)) {
+      return 0;
+    }
+    const fliterArr = totalArr.filter((el) => el.length > 0);
+    if (
+      fliterArr.length === 2 &&
+      (fliterArr[0][1] < fliterArr[1][0] || fliterArr[1][0] < fliterArr[0][1])
+    ) {
+      return (
+        fliterArr[0][1] - fliterArr[0][0] + fliterArr[1][1] - fliterArr[1][0]
+      );
+    }
+    const max = Math.max(...totalArr.flat());
+    const min = Math.min(...totalArr.flat());
+
+    answer = max - min;
+
+    return answer;
+  }
+
+  // { {0,8}, {0,2}, {6,8} }
+  // [[0, 2], [-3, -1], [-2, 1]] 기댓값 2
+  // [[-3, -1], [-2, 3], [2, 3]] 기댓값 2
+  // [[0, 3], [-3, -1], [-2, 3]] 기댓값 4
+
+  const lines = [
+    [0, 2],
+    [-3, -1],
+    [-2, 1],
+  ];
+
+  console.log(solution(lines));
+</script>
