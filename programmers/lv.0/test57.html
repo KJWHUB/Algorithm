@@ -29,18 +29,89 @@
 
 <script>
   // 최대공약수
-  // function gcd(minNum, maxNum){
-  //   return (minNum % maxNum) === 0 ? maxNum : gcd(maxNum, minNum % maxNum);
-  // }
+  function gcd(minNum, maxNum) {
+    return minNum % maxNum === 0 ? maxNum : gcd(maxNum, minNum % maxNum);
+  }
+
+  // 소수 계산
+  function isPrime(num) {
+    // 소수는 1과 자기 자신만으로만 나누어 떨어지는 수 임으로
+    // num > i
+    for (let i = 2; num > i; i++) {
+      if (num % i === 0) {
+        //이 부분에서 num이  다른 수로 나눠떨어진다면 소수가 아님
+        return false;
+      }
+    }
+    // 소수는 1보다 큰 정수임으로
+    // 1보다 작으면 false를 리턴한다
+    return num > 1;
+  }
+
+  // 소인수 계산
+  function primeFactors(n) {
+    const factors = [];
+
+    for (let i = 2; i < n; i++) {
+      if (n % i === 0 && isPrime(i)) {
+        factors.push(i);
+      }
+    }
+
+    return factors;
+  }
+
+  // 5로 먼저 나눌수 있을만큼 나누고 2로 나눌수 있을 만큼 나누었을때 나머지가 존재한다면 false
+  const fn = (num) => {
+    const n5 = num % 5;
+
+    if (num === 1) {
+      return true;
+    }
+
+    console.log("소인수 리스트", primeFactors(num));
+    if (!primeFactors(num).every((el) => el === 2 || el === 5)) {
+      return false;
+    }
+
+    if (num % 2 === 0) {
+      return true;
+    }
+    if (n5 === 0) {
+      return true;
+    }
+    return false;
+  };
+
+  /*
+    1. a/b 를 기약분수(x)로 만든다
+    2. x의 분모를 5와 2로만 나눠서 0이 되는지 판별
+    3. 판별후 가능하면  answer ? 1 : 2
+  */
   // 내가 짠 코드
   function solution(a, b) {
-    const temp = true;
+    let temp = false;
+
+    // 1
+    // 최대 공약수
+    const gcdNum = gcd(a, b);
+    const x = [a / gcdNum, b / gcdNum];
+
+    console.log(x);
+
+    // 2
+    if (fn(x[1])) {
+      temp = true;
+    } else {
+      temp = false;
+    }
 
     return temp ? 1 : 2;
   }
-
-  const a = 11;
-  const b = 22;
+  // 31, 14 기댓값 2
+  // 3500, 500 기댓값 1
+  const a = 3500;
+  const b = 500;
 
   console.log(solution(a, b));
 </script>
