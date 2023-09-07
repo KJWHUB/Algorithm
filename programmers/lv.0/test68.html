@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>옹알이 (1)</h1>
+
+    <h3>문제 설명</h3>
+    <p>
+      머쓱이는 태어난 지 6개월 된 조카를 돌보고 있습니다. 조카는 아직 "aya",
+      "ye", "woo", "ma" 네 가지 발음을 최대 한 번씩 사용해 조합한(이어 붙인)
+      발음밖에 하지 못합니다. 문자열 배열 babbling이 매개변수로 주어질 때,
+      머쓱이의 조카가 발음할 수 있는 단어의 개수를 return하도록 solution 함수를
+      완성해주세요.
+    </p>
+
+    <h3>제한사항</h3>
+    <p>
+      1 ≤ babbling의 길이 ≤ 100 1 ≤ babbling[i]의 길이 ≤ 15 babbling의 각
+      문자열에서 "aya", "ye", "woo", "ma"는 각각 최대 한 번씩만 등장합니다. 즉,
+      각 문자열의 가능한 모든 부분 문자열 중에서 "aya", "ye", "woo", "ma"가 한
+      번씩만 등장합니다. 문자열은 알파벳 소문자로만 이루어져 있습니다.
+    </p>
+
+    <h3>입출력 예</h3>
+    <div>
+      babbling result ["aya", "yee", "u", "maa", "wyeoo"] 1 ["ayaye", "uuuma",
+      "ye", "yemawoo", "ayaa"] 3
+    </div>
+  </body>
+</html>
+
+<script>
+  /*
+
+  */
+
+  const st = ["aya", "ye", "woo", "ma"];
+
+  const fn = (str) => {
+    let count = 0;
+    const strArr = [...str];
+    const arrT = [];
+
+    strArr.reduce((acc, curr) => {
+      if (st.includes(acc + curr)) {
+        arrT.push(acc + curr);
+        return "";
+      }
+
+      return acc + curr;
+    });
+
+    if (arrT.join("") === str) {
+      console.log("일치하여 카운트 추가", arrT.join(""), str);
+      count++;
+    }
+
+    return count;
+  };
+
+  function solution(babbling) {
+    var answer = 0;
+    const reg = /^a|y|w|m/g;
+
+    const filterArr = babbling.filter((el) => reg.test(el));
+
+    if (filterArr.length === 0) {
+      return 0;
+    }
+
+    // 주어진 배열의 문자열마다 함수 실행
+    // 1. 문자열을 배열로 변환
+    // 2. 배열을 하나씩 이어 붙히면서 해당하는 문자열이 있는지 체크
+    // 3. 해당하는 문자열이 있으면 배열에서 해당하는 문자열 제거 및 카운트 추가
+    // 4. 배열이 끝날때 까지 2번 반복 실행
+
+    babbling.forEach((el) => {
+      answer += fn(el);
+    });
+    return answer;
+  }
+
+  // const babbling = ["aya", "yee", "u", "maa", "wyeoo"];
+  const babbling = ["ayaye", "uuuma", "ye", "yemawoo", "ayaa"];
+
+  console.log(solution(babbling));
+</script>
