@@ -11,7 +11,6 @@ function solution(s) {
         answer[1] += L - deleteZeroL
         
         str = deleteZeroL.toString(2)
-        console.log(str)
     }
     
     return answer;
